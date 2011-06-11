@@ -1,30 +1,26 @@
+import os
 from lib.adb import AndroidDebugBridge
 
 adb = AndroidDebugBridge()
+
+dir = raw_input("Enter the location at which the workspace is to be created: ")
+print dir
+if not os.path.exists(dir):
+    os.makedirs(dir)
+os.makedirs("%s/database" % dir)
+os.makedirs("%s/photos" % dir)
+db = dir + "/database"
+print db
+photo = dir + "/photos"
+print photo
+
+
 result = adb.get_state()
-result = result.strip(' \t\n\r')
+result = result.strip('\n')
 if result == "unknown":
 	print "Not able to access device. Please check whether the device is connected properly and USB debugging mode is enabled"
 
+adb.pull('/data/system/accounts.db',db)
 
-"""
-dir = raw_input("Enter the location at which the workspace is to be created: ")
-if not os.path.exists(dir):
-    os.makedirs(dir)
-
-results = subprocess.call(["adb", "get-state"])
-print results
-while 1:
-	line = results.readline()
-	if not line: break
-	command_result += line
-
-print command_result
-
-if command_result == "unknown":
-	print "Not able to access device. Please check whether the device is connected properly and USB debugging mode is enabled"
-	exit()
-
-	##os.system('adb pull /data/system/accounts.db')
+##os.system('adb pull /data/system/accounts.db')
 ##/data/data/com.dropbox.android/databases/db.db
-"""

@@ -43,6 +43,7 @@ class AndroidDebugBridge(object):
 	
 	def push(self, local, remote):
 		result = self.call_adb("push %s %s" % (local, remote))
+		print result
 		return result
 	
 	def pull(self, remote, local):
