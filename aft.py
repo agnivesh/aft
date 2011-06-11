@@ -1,25 +1,12 @@
-import os
-import shlex, subprocess
-from subprocess import call
+from lib.adb import AndroidDebugBridge
 
-def call_adb (command)
-	command_result = ''
-	command_text = 'adb %s' % command
-	results = os.popen(command_text, "r")
-	while 1:
-	    line = results.readline()
-		if not line: break
-		command_result += line
-	command_result = command_result.strip(' \t\n\r')
-	return command_result
+adb = AndroidDebugBridge()
+result = adb.get_state()
+result = result.strip(' \t\n\r')
+if result == "unknown":
+	print "Not able to access device. Please check whether the device is connected properly and USB debugging mode is enabled"
 
 
-def main():
-	if command_result == "unknown":
-		print "Not able to access device. Please check whether the device is connected properly and USB debugging mode is enabled"
-
-if __name__ == "__main__":
-    main()
 """
 dir = raw_input("Enter the location at which the workspace is to be created: ")
 if not os.path.exists(dir):
