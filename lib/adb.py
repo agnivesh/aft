@@ -43,7 +43,6 @@ class AndroidDebugBridge(object):
 	
 	def push(self, local, remote):
 		result = self.call_adb("push %s %s" % (local, remote))
-		print result
 		return result
 	
 	def pull(self, remote, local):
@@ -55,4 +54,10 @@ class AndroidDebugBridge(object):
 		if 'list' in kwargs:
 			command += " -l"
 		result = self.call_adb(command)
+		return result
+	
+	def shell(self, command):
+		cmd= "shell %s" % command
+		print cmd
+		result = self.call_adb(cmd)
 		return result
