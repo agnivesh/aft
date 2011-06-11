@@ -1,5 +1,7 @@
 import os
+import re
 from lib.adb import AndroidDebugBridge
+import string
 
 adb = AndroidDebugBridge()
 
@@ -28,8 +30,16 @@ def main():
 	
 	print "Extracting photos"
 	result = adb.shell("ls /sdcard/DCIM/Camera -l")
-	print result
-	
+	f = open ("%s/list.txt" % photo, 'w')
+	f.write(result)
+	f.close()
+	f = open ("%s/list.txt" % photo, 'r')
+	line = f.readline()
+	while line:
+		if re.match(r"^*.jpg$", line):
+			adb.pull("/sdcard/DCIM/Camera/%s" % line, photo)
+		f.readline()
+		
 if __name__ == "__main__":
     main()
 ##os.system('adb pull /data/system/accounts.db')
