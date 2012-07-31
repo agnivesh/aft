@@ -2,8 +2,8 @@
 
 import pyexiv2
 import fractions
-from PIL import Image
-from PIL.ExifTags import TAGS
+#from PIL import Image
+#from PIL.ExifTags import TAGS
 
 def get_exif_data(image_path):
 	

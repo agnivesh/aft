@@ -58,6 +58,5 @@ class AndroidDebugBridge(object):
 	
 	def shell(self, command):
 		cmd= "shell %s" % command
-		print cmd
 		result = self.call_adb(cmd)
 		return result
